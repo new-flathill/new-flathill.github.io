@@ -1,0 +1,82 @@
+/* 車両情報のtext部分の入力 */
+.municipalities{
+    text-align: right;
+    padding: 5px;
+    margin-top: 8px;
+    margin-bottom: 15px;
+    height: 25px;
+    width: 280px;
+    text-align: right;
+    font-size: 10pt;
+}
+
+ul, li {
+    padding-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+
+.li_center {
+    background: white;
+    text-align: center;
+    padding: 20px;
+    /*padding-left: 0%;
+    padding-right: 0%;*/
+}
+
+li {
+    /* background: #ccc; */
+    text-align: center;
+    padding: 20px 0;
+    border: 1px solid #fff;
+}
+
+html{
+    height: 100%;
+}
+
+main{
+    position: relative;
+    background-color:white;
+    margin: 1em;
+    min-height: 95%;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    border-radius: 3%;
+    padding-top: 0.5em;
+    display: block;
+    display: flex;              /*footerを下部に配置するために追加*/
+    flex-direction: column;     /**/
+    min-height: 95vh;           /**/
+}
+
+h1{
+    margin: 1em;
+}
+
+table{
+    margin: auto;
+    overflow-wrap: break-word;
+}
+
+.center{
+    text-align: center;
+}
+
+textarea{
+    text-align: left;
+    resize: none;
+    outline: none;
+    /* border: none; */
+    height: 300px;
+    width: auto;
+}
+
+.explain_left {
+    float: left;
+}
+
+.explain_right {
+    float: right;
+}
