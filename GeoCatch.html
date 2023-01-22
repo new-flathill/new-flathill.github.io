@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>座標とれ～る</title>
+    <link href="GeoCatch.css" rel='stylesheet' 　media="all">
+</head>
+
+<body>
+    <main>
+        <h2>　座標とれ～る</h2>
+
+        <div style="padding:  15px 10px;  background: #98fb98;">検索する市区町村名を入れてください</div>
+
+        <li class="li_center">
+            <input class="municipalities" type="text" id="municipalities" 
+            placeholder="市区町村名を入れてください" onchange=searchEPSG(this)><br></input>
+        
+            <!-- <div class="explain_left"><br>
+                <textarea rows="4" cols="40" readonly>
+説明文を記入
+                </textarea>
+            </div>
+
+            <div class="explain_right"><br>
+                <textarea rows="4" cols="40" readonly>
+説明文を記入
+                </textarea>
+            </div> -->
+
+            <table border="1">
+                <tr>
+                    <th colspan="4">測地系</th>
+                    <th colspan="4">投影法</th>
+                    <th colspan="3"> EPSG </th>
+                </tr>
+                <!-- JGD2011の表作成部分 -->
+                <tr>
+                    <th rowspan="8" colspan="2">日本測地系<br>（世界測地系）</th>
+                    <th rowspan="3" colspan="2">JGD2011</th>
+                    <td rowspan="1" colspan="4">地理座標系</td>
+                    <td colspan="3" id="JGD2011_geo"></td>
+                </tr>
+                <tr>
+                    <th rowspan="2" colspan="2">投影座標系</th>
+                    <th rowspan="1" colspan="2">UTM座標系</th>
+                    <td colspan="3" id="JGD2011_utm"></td>
+                </tr>
+                <tr>
+                    <th rowspan="1" colspan="2">平面直角座標系</th>
+                    <td colspan="3" id="JGD2011_flat"></td>
+                </tr>
+                <!-- JGD2000の表作成部分 -->
+                <tr>
+                    <th rowspan="3" colspan="2">JGD2000</th>
+                    <td rowspan="1" colspan="4">地理座標系</td>
+                    <td colspan="3" id="JGD2000_geo"></td>
+                </tr>
+                <tr>
+                    <th rowspan="2" colspan="2">投影座標系</th>
+                    <th rowspan="1" colspan="2">UTM座標系</th>
+                    <td colspan="3" id="JGD2000_utm"></td>
+                </tr>
+                <tr>
+                    <th rowspan="1" colspan="2">平面直角座標系</th>
+                    <td colspan="3" id="JGD2000_flat"></td>
+                </tr>
+                <!-- WGS1984の表作成部分 -->
+                <tr>
+                    <th rowspan="2" colspan="2">WGS 84</th>
+                    <td rowspan="1" colspan="4">地理座標系</td>
+                    <td colspan="3" id="WGS84_geo"></td>
+                </tr>
+                <tr>
+                    <th rowspan="1" colspan="2">投影座標系</th>
+                    <th rowspan="1" colspan="2">UTM座標系</th>
+                    <td colspan="3" id="WGS84_utm"></td>
+                </tr>
+                <!-- 旧日本測地系の表作成部分 -->
+                <tr>
+                    <th rowspan="3" colspan="2">旧日本測地系</th>
+                    <th rowspan="3" colspan="2">TOKYO<br>（TKY）</th>
+                    <td rowspan="1" colspan="4">地理座標系</td>
+                    <td colspan="3" id="tky_geo"></td>
+                </tr>
+                <tr>
+                    <th rowspan="2" colspan="2">投影座標系</th>
+                    <th rowspan="1" colspan="2">UTM座標系</th>
+                    <td colspan="3" id="tky_utm"></td>
+                </tr>
+                <tr>
+                    <th rowspan="1" colspan="2">平面直角座標系</th>
+                    <td colspan="3" id="tky_flat"></td>
+                </tr>
+
+            </table>
+
+        </li>
+
+    </main>
+
+    <script>
+        //URLの取得
+        let getURL = document.domain;
+        // 画面ロード時にcsvを取得し、セッションストレージに保存
+        getCSV()
+
+        /**
+         * 市区町村座標取得
+         * 市区町村名からEPSGを取得するメソッド
+         * csv情報はセッションストレージから取得する
+         */
+        function searchEPSG(){
+            //let csv = get_csv()   // 座標系の書かれたcsvファイルを取得する
+            let municipalities = document.getElementById("municipalities").value;
+
+            for(let i=0; i<csv.length; i++){  // csvのリストの長さだけ探索を行う
+                if(csv[i][2] == municipalities || csv[i][4] == municipalities || csv[i][5] == municipalities){    // csvの中に都道府県名が存在した場合
+                    // 検索市町村名の行を特定
+                    document.getElementById("JGD2011_geo").innerHTML = csv[i][11]
+                    document.getElementById("JGD2011_utm").innerHTML = csv[i][10]
+                    document.getElementById("JGD2011_flat").innerHTML = csv[i][9]
+                    document.getElementById("JGD2000_geo").innerHTML = csv[i][14]
+                    document.getElementById("JGD2000_utm").innerHTML = csv[i][13]
+                    document.getElementById("JGD2000_flat").innerHTML = csv[i][12]
+                    document.getElementById("WGS84_geo").innerHTML = csv[i][18]
+                    document.getElementById("WGS84_utm").innerHTML = csv[i][19]
+                    document.getElementById("TKY_geo").innerHTML = csv[i][17]
+                    document.getElementById("TKY_utm").innerHTML = csv[i][16]
+                    document.getElementById("TKY_flat").innerHTML = csv[i][15]
+                }
+            }
+            if (document.getElementById("JGD2011_geo").innerHTML == ""){
+                alert("市町村名が誤っています");
+                return false;
+            }
+        }    
+        
+
+        //CSVファイルを読み込む関数getCSV()の定義
+        function getCSV(){
+            var req = new XMLHttpRequest(); // HTTPでファイルを読み込むためのXMLHttpRrequestオブジェクトを生成
+            req.open("get", "http://localhost/UDC/GeoDB.csv", true); // アクセスするファイルを指定
+            req.overrideMimeType('text/plain; charset=Shift_JIS');
+            req.send(null); // HTTPリクエストの発行
+            
+            // レスポンスが返ってきたらconvertCSVtoArray()を呼ぶ	
+            req.onload = function(){
+                csv = convertCSVtoArray(req.responseText); // 渡されるのは読み込んだCSVデータ
+                sessionStorage.setItem("csv", csv)
+            }
+        }
+        
+        // 読み込んだCSVデータを二次元配列に変換する関数convertCSVtoArray()の定義
+        function convertCSVtoArray(str){ // 読み込んだCSVデータが文字列として渡される
+            var result = []; // 最終的な二次元配列を入れるための配列
+            var tmp = str.split("\n"); // 改行を区切り文字として行を要素とした配列を生成
+        
+            // 各行ごとにカンマで区切った文字列を要素とした二次元配列を生成
+            for(var i=0;i<tmp.length;++i){
+                result[i] = tmp[i].split(',');
+            }
+            return result
+        }
+
+    </script>
+</body>
