@@ -28,7 +28,21 @@
 説明文を記入
                 </textarea>
             </div> -->
-
+    
+            <table border="1">
+                <tr>
+                    <th rowspan="2">　座標系　</th>
+                    <th colspan="3">平面直角座標系</th>
+                    <th colspan="3">　UTM座標系　</th>
+                    <th colspan="3">　地理座標系　</th>
+                </tr>  
+                <tr>
+                    <td colspan="3" id="flatK">　</td>
+                    <td colspan="3" id="utmK">　</td>
+                    <td colspan="3" id="geoK">　</td>
+                </tr>
+            </table><br>
+    
             <table border="1">
                 <tr>
                     <th colspan="4">測地系</th>
@@ -112,12 +126,23 @@
          * csv情報はセッションストレージから取得する
          */
         function searchEPSG(){
-            //let csv = get_csv()   // 座標系の書かれたcsvファイルを取得する
+            // 連続で検索する際に同じ情報にならないよう一回空っぽにする
+            var id_List = ["flatK", "utmK", "geoK", "JGD2011_geo", "JGD2011_utm", "JGD2011_flat", "JGD2000_geo", 
+                           "JGD2000_utm", "JGD2000_flat", "WGS84_geo", "WGS84_utm", "tky_geo", "tky_utm", "tky_flat"]
+            for(let h=0; h<id_List.length; h++){
+                document.getElementById(id_List[h]).innerHTML = "　"
+            }
+
             let municipalities = document.getElementById("municipalities").value;
 
             for(let i=0; i<csv.length; i++){  // csvのリストの長さだけ探索を行う
                 if(csv[i][2] == municipalities || csv[i][4] == municipalities || csv[i][5] == municipalities){    // csvの中に都道府県名が存在した場合
-                    // 検索市町村名の行を特定
+                    // 検索市区町村の座標系を入力
+                    document.getElementById("flatK").innerHTML = csv[i][6]
+                    document.getElementById("utmK").innerHTML = csv[i][7]
+                    document.getElementById("geoK").innerHTML = csv[i][8]
+                    
+                    // 検索市町村名のEPSGを入力
                     document.getElementById("JGD2011_geo").innerHTML = csv[i][11]
                     document.getElementById("JGD2011_utm").innerHTML = csv[i][10]
                     document.getElementById("JGD2011_flat").innerHTML = csv[i][9]
