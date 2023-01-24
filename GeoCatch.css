@@ -3,9 +3,37 @@
     text-align: right;
     padding: 5px;
     margin-top: 8px;
-    margin-bottom: 15px;
     height: 25px;
     width: 280px;
+    text-align: right;
+    font-size: 10pt;
+}
+
+.single_title{
+    text-align: center;
+    margin-bottom: 10px;
+    height: 25px;
+    width: 280px;
+    text-align: right;
+    font-size: 10pt;
+}
+
+.title_right{
+    text-align: right;
+    margin-bottom: 10px;
+    margin-left: auto;
+    height: 25px;
+    width: auto;
+    text-align: right;
+    font-size: 10pt;
+}
+
+.title_left{
+    text-align: left;
+    margin-bottom: 10px;
+    margin-right: auto;
+    height: 25px;
+    width: auto;
     text-align: right;
     font-size: 10pt;
 }
@@ -20,7 +48,7 @@ ul, li {
 .li_center {
     background: white;
     text-align: center;
-    padding: 20px;
+    /* padding: 20px; */
     /*padding-left: 0%;
     padding-right: 0%;*/
 }
@@ -28,7 +56,7 @@ ul, li {
 li {
     /* background: #ccc; */
     text-align: center;
-    padding: 20px 0;
+    padding: 20px 10px;
     border: 1px solid #fff;
 }
 
@@ -65,18 +93,29 @@ table{
 }
 
 textarea{
-    text-align: left;
+    text-align: center;
     resize: none;
     outline: none;
     /* border: none; */
     height: 300px;
     width: auto;
+    border: none;
+    color: red;
+    font-size: 70px;
 }
 
 .explain_left {
     float: left;
 }
 
+.explain_center {
+    float: center;
+}
+
 .explain_right {
     float: right;
+    width: 100%;
+    text-align: center;
+    outline: none;
+    border: none;
 }
