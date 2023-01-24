@@ -14,8 +14,10 @@
         <div style="padding:  15px 10px;  background: #98fb98;">検索する市区町村名を入れてください</div>
 
         <li class="li_center">
-            <input class="municipalities" type="text" id="municipalities" 
-            placeholder="市区町村名を入れてください" onchange=searchEPSG(this)></input>
+            <input class="municipalities" type="text" id="municipalities" list="NameList"
+            placeholder="市区町村名を入れてください　　例：川越市" onchange=getEPSG() oninput=searchCity()>
+        <datalist id="NameList"></datalist>
+        </input>
         
             <!-- <div class="explain_left"><br>
                 <textarea rows="4" cols="40" readonly>
@@ -34,18 +36,18 @@
             <table border="1" style="margin-bottom: 10;">
                 <tr>
                     <th rowspan="1" colspan="3">検索都市名</th>
-                    <td colspan="6" id="single_title">　</td>
+                    <td colspan="8" id="single_title">　</td>
                 </tr>
                 <tr>
                     <th rowspan="2">　座標系　</th>
-                    <th colspan="3">平面直角座標系</th>
-                    <th colspan="3">　UTM座標系　</th>
+                    <th colspan="4">平面直角座標系</th>
+                    <th colspan="4">　UTM座標系　</th>
                     <th colspan="3">　地理座標系　</th>
                 </tr>  
                 <tr>
-                    <td colspan="3" id="flatK">　</td>
-                    <td colspan="3" id="utmK">　</td>
-                    <td colspan="3" id="geoK">　</td>
+                    <td colspan="4" id="flatK">　</td>
+                    <td colspan="4" id="utmK">　</td>
+                    <td colspan="3" id="geoK">存在しません</td>
                 </tr>
             </table><br>
 
@@ -57,7 +59,7 @@
                 </tr>
                 <!-- JGD2011の表作成部分 -->
                 <tr>
-                    <th rowspan="8" colspan="2">日本測地系<br>（世界測地系）</th>
+                    <th rowspan="6" colspan="2">日本測地系<br>（世界測地系）</th>
                     <th rowspan="3" colspan="2">JGD2011</th>
                     <td rowspan="1" colspan="4">地理座標系</td>
                     <td colspan="3" id="JGD2011_geo"></td>
@@ -68,7 +70,7 @@
                     <td colspan="3" id="JGD2011_utm"></td>
                 </tr>
                 <tr>
-                    <th rowspan="1" colspan="2">平面直角座標系</th>
+                    <th rowspan="1" colspan="2">平面直角<br>座標系</th>
                     <td colspan="3" id="JGD2011_flat"></td>
                 </tr>
                 <!-- JGD2000の表作成部分 -->
@@ -83,19 +85,24 @@
                     <td colspan="3" id="JGD2000_utm"></td>
                 </tr>
                 <tr>
-                    <th rowspan="1" colspan="2">平面直角座標系</th>
+                    <th rowspan="1" colspan="2">平面直角<br>座標系</th>
                     <td colspan="3" id="JGD2000_flat"></td>
                 </tr>
-                <!-- WGS1984の表作成部分 -->
+                <!-- WGS84の表作成部分 -->
                 <tr>
-                    <th rowspan="2" colspan="2">WGS 84</th>
+                    <th rowspan="3" colspan="2">世界測地系</th>
+                    <th rowspan="3" colspan="2">WGS 84</th>
                     <td rowspan="1" colspan="4">地理座標系</td>
                     <td colspan="3" id="WGS84_geo"></td>
                 </tr>
                 <tr>
-                    <th rowspan="1" colspan="2">投影座標系</th>
+                    <th rowspan="2" colspan="2">投影座標系</th>
                     <th rowspan="1" colspan="2">UTM座標系</th>
                     <td colspan="3" id="WGS84_utm"></td>
+                </tr>
+                <tr>
+                    <th rowspan="1" colspan="2">Webメルカトル</th>
+                    <td colspan="3" id="WGS_mer"></td>
                 </tr>
                 <!-- 旧日本測地系の表作成部分 -->
                 <tr>
@@ -110,7 +117,7 @@
                     <td colspan="3" id="tky_utm"></td>
                 </tr>
                 <tr>
-                    <th rowspan="1" colspan="2">平面直角座標系</th>
+                    <th rowspan="1" colspan="2">平面直角<br>座標系</th>
                     <td colspan="3" id="tky_flat"></td>
                 </tr>
             </table>
@@ -121,36 +128,36 @@
             <table border="1" align="left" style="margin-left: 10%;">
                 <tr>
                     <th rowspan="1" colspan="3">検索都市名</th>
-                    <td colspan="6" id="title_left">　</td>
+                    <td colspan="8" id="title_left">　</td>
                 </tr>
                 <tr>
                     <th rowspan="2">　座標系　</th>
-                    <th colspan="3">平面直角座標系</th>
-                    <th colspan="3">　UTM座標系　</th>
+                    <th colspan="4">平面直角座標系</th>
+                    <th colspan="4">　UTM座標系　</th>
                     <th colspan="3">　地理座標系　</th>
                 </tr>  
                 <tr>
-                    <td colspan="3" id="flatK_left">　</td>
-                    <td colspan="3" id="utmK_left">　</td>
-                    <td colspan="3" id="geoK_left">　</td>
+                    <td colspan="4" id="flatK_left">　</td>
+                    <td colspan="4" id="utmK_left">　</td>
+                    <td colspan="3" id="geoK_left">存在しません</td>
                 </tr>
             </table>
 
             <table border="1" align="right" style="margin-right: 10%;">
                 <tr>
                     <th rowspan="1" colspan="3">検索都市名</th>
-                    <td colspan="6" id="title_right">　</td>
+                    <td colspan="8" id="title_right">　</td>
                 </tr>
                 <tr>
                     <th rowspan="2">　座標系　</th>
-                    <th colspan="3">平面直角座標系</th>
-                    <th colspan="3">　UTM座標系　</th>
+                    <th colspan="4">平面直角座標系</th>
+                    <th colspan="4">　UTM座標系　</th>
                     <th colspan="3">　地理座標系　</th>
                 </tr>  
                 <tr>
-                    <td colspan="3" id="flatK_right">　</td>
-                    <td colspan="3" id="utmK_right">　</td>
-                    <td colspan="3" id="geoK_right">　</td>
+                    <td colspan="4" id="flatK_right">　</td>
+                    <td colspan="4" id="utmK_right">　</td>
+                    <td colspan="3" id="geoK_right">存在しません</td>
                 </tr>
             </table>
         </li>
@@ -165,7 +172,7 @@
                 </tr>
                 <!-- JGD2011の表作成部分 -->
                 <tr>
-                    <th rowspan="8" colspan="2">日本測地系<br>（世界測地系）</th>
+                    <th rowspan="6" colspan="2">日本測地系<br>（世界測地系）</th>
                     <th rowspan="3" colspan="2">JGD2011</th>
                     <td rowspan="1" colspan="4">地理座標系</td>
                     <td colspan="3" id="JGD2011_geo_left"></td>
@@ -176,7 +183,7 @@
                     <td colspan="3" id="JGD2011_utm_left"></td>
                 </tr>
                 <tr>
-                    <th rowspan="1" colspan="2">平面直角座標系</th>
+                    <th rowspan="1" colspan="2">平面直角<br>座標系</th>
                     <td colspan="3" id="JGD2011_flat_left"></td>
                 </tr>
                 <!-- JGD2000の表作成部分 -->
@@ -191,19 +198,24 @@
                     <td colspan="3" id="JGD2000_utm_left"></td>
                 </tr>
                 <tr>
-                    <th rowspan="1" colspan="2">平面直角座標系</th>
+                    <th rowspan="1" colspan="2">平面直角<br>座標系</th>
                     <td colspan="3" id="JGD2000_flat_left"></td>
                 </tr>
-                <!-- WGS1984の表作成部分 -->
+                <!-- WGS84の表作成部分 -->
                 <tr>
-                    <th rowspan="2" colspan="2">WGS 84</th>
+                    <th rowspan="3" colspan="2">世界測地系</th>
+                    <th rowspan="3" colspan="2">WGS 84</th>
                     <td rowspan="1" colspan="4">地理座標系</td>
                     <td colspan="3" id="WGS84_geo_left"></td>
                 </tr>
                 <tr>
-                    <th rowspan="1" colspan="2">投影座標系</th>
+                    <th rowspan="2" colspan="2">投影座標系</th>
                     <th rowspan="1" colspan="2">UTM座標系</th>
                     <td colspan="3" id="WGS84_utm_left"></td>
+                </tr>
+                <tr>
+                    <th rowspan="1" colspan="2">Webメルカトル</th>
+                    <td colspan="3" id="WGS_mer_left"></td>
                 </tr>
                 <!-- 旧日本測地系の表作成部分 -->
                 <tr>
@@ -218,7 +230,7 @@
                     <td colspan="3" id="tky_utm_left"></td>
                 </tr>
                 <tr>
-                    <th rowspan="1" colspan="2">平面直角座標系</th>
+                    <th rowspan="1" colspan="2">平面直角<br>座標系</th>
                     <td colspan="3" id="tky_flat_left"></td>
                 </tr>
             </table>
@@ -231,7 +243,7 @@
                 </tr>
                 <!-- JGD2011の表作成部分 -->
                 <tr>
-                    <th rowspan="8" colspan="2">日本測地系<br>（世界測地系）</th>
+                    <th rowspan="6" colspan="2">日本測地系<br>（世界測地系）</th>
                     <th rowspan="3" colspan="2">JGD2011</th>
                     <td rowspan="1" colspan="4">地理座標系</td>
                     <td colspan="3" id="JGD2011_geo_right"></td>
@@ -242,7 +254,7 @@
                     <td colspan="3" id="JGD2011_utm_right"></td>
                 </tr>
                 <tr>
-                    <th rowspan="1" colspan="2">平面直角座標系</th>
+                    <th rowspan="1" colspan="2">平面直角<br>座標系</th>
                     <td colspan="3" id="JGD2011_flat_right"></td>
                 </tr>
                 <!-- JGD2000の表作成部分 -->
@@ -257,20 +269,27 @@
                     <td colspan="3" id="JGD2000_utm_right"></td>
                 </tr>
                 <tr>
-                    <th rowspan="1" colspan="2">平面直角座標系</th>
+                    <th rowspan="1" colspan="2">平面直角<br>座標系</th>
                     <td colspan="3" id="JGD2000_flat_right"></td>
                 </tr>
-                <!-- WGS1984の表作成部分 -->
+
+                <!-- WGS84の表作成部分 -->
                 <tr>
-                    <th rowspan="2" colspan="2">WGS 84</th>
+                    <th rowspan="3" colspan="2">世界測地系</th>
+                    <th rowspan="3" colspan="2">WGS 84</th>
                     <td rowspan="1" colspan="4">地理座標系</td>
                     <td colspan="3" id="WGS84_geo_right"></td>
                 </tr>
                 <tr>
-                    <th rowspan="1" colspan="2">投影座標系</th>
+                    <th rowspan="2" colspan="2">投影座標系</th>
                     <th rowspan="1" colspan="2">UTM座標系</th>
                     <td colspan="3" id="WGS84_utm_right"></td>
                 </tr>
+                <tr>
+                    <th rowspan="1" colspan="2">Webメルカトル</th>
+                    <td colspan="3" id="WGS_mer_right"></td>
+                </tr>
+
                 <!-- 旧日本測地系の表作成部分 -->
                 <tr>
                     <th rowspan="3" colspan="2">旧日本測地系</th>
@@ -284,11 +303,12 @@
                     <td colspan="3" id="tky_utm_right"></td>
                 </tr>
                 <tr>
-                    <th rowspan="1" colspan="2">平面直角座標系</th>
+                    <th rowspan="1" colspan="2">平面直角<br>座標系</th>
                     <td colspan="3" id="tky_flat_right"></td>
                 </tr>
             </table>
-
+        </li>
+        <textarea id="error" readonly hidden></textarea>
     </main>
 
     <script>
@@ -298,98 +318,153 @@
         getCSV()
 
         /**
-         * 市区町村座標取得
-         * 市区町村名からEPSGを取得するメソッド
+         * 表の表示非表示を設定
+         */
+        function hidden(flag){
+            // 表を一つ表示
+            if(flag == 0){
+                document.getElementById("single").hidden = false
+                document.getElementById("multi_top").hidden = true
+                document.getElementById("multi_bottom").hidden = true
+                document.getElementById("error").hidden = true
+            }
+            // 表を二つ表示（三島村）
+            else if (flag == 1){
+                document.getElementById("single").hidden = true
+                document.getElementById("multi_top").hidden = false
+                document.getElementById("multi_bottom").hidden = false
+                document.getElementById("error").hidden = true
+            }
+            // エラー文
+            else {
+                document.getElementById("single").hidden = true
+                document.getElementById("multi_top").hidden = true
+                document.getElementById("multi_bottom").hidden = true
+                document.getElementById("error").hidden = false
+            }
+        }
+            
+        /**
+         * 市区町村名取得
+         * 検索欄に入力された文字を基に行を一意に定める
          * csv情報はセッションストレージから取得する
          */
-        function searchEPSG(){
+        function searchCity(){
+            // 毎回追加されるため、入力の最初はoptionsを空にする
+            var OldList = document.getElementById("NameList")
+            var OldOptions = OldList.options
+            var count = OldOptions.length
+            for (f=0; f<count; f++){
+                OldList.removeChild(OldOptions[0])
+            }
+            // 検索都市名を取得(入力されるたびに)
+            var CityName = document.getElementById("municipalities").value;
+            var list = document.getElementById("NameList")
+            for(let g=0; g<csv.length; g++){
+                if (csv[g][2] == CityName || csv[g][4] == CityName || csv[g][5] == CityName){
+                    csv_city = csv[g][1] + " " + csv[g][2]
+                    var option = document.createElement("option")
+                    // option.text = csv[g]
+                    option.value = csv[g][1] + " " + csv[g][2]
+                    list.appendChild(option)
+                }
+            }
+        }
+
+        /**
+         * 市区町村座標取得
+         * 名前から取得
+         */
+        function getEPSG(){
             // 連続で検索する際に同じ情報にならないよう一回空っぽにする
-            var id_List = ["flatK", "utmK", "geoK", "JGD2011_geo", "JGD2011_utm", "JGD2011_flat", "JGD2000_geo", 
+            var id_List = ["flatK", "utmK", "JGD2011_geo", "JGD2011_utm", "JGD2011_flat", "JGD2000_geo", 
                            "JGD2000_utm", "JGD2000_flat", "WGS84_geo", "WGS84_utm", "tky_geo", "tky_utm", "tky_flat"]
             for(let h=0; h<id_List.length; h++){
                 document.getElementById(id_List[h]).innerHTML = "　"
             }
-            //let csv = get_csv()   // 座標系の書かれたcsvファイルを取得する
-            let municipalities = document.getElementById("municipalities").value;
 
+            // 表のidをリスト化
+            var geo_list = ["JGD2011_flat", "JGD2011_utm", "JGD2011_geo", "JGD2000_flat", "JGD2000_utm", "JGD2000_geo",
+                            "tky_flat", "tky_utm", "tky_geo", "WGS84_geo", "WGS84_utm", "WGS_mer"]
+            // 名前を取得して都道府県と市区町村を分ける
+            var multi_name = document.getElementById("municipalities").value
+            var name = multi_name.split(" ")
+
+            // csvの中から、対応の部分を取得する
             for(let i=0; i<csv.length; i++){  // csvのリストの長さだけ探索を行う
-                if (municipalities == "三島村" || municipalities == "みしまむら"){
-                    document.getElementById("single").hidden = true
-                    document.getElementById("multi_top").hidden = false
-                    document.getElementById("multi_bottom").hidden = false
+                
+                // 同じ名前の市区町村が存在するときの処理
+                if (name[0] == csv[i][1] && name[1] == csv[i][2]){
+                    document.getElementById("single_title").innerHTML = multi_name  // 検索都道府県＋市区町村名
+                    // 表の表示非表示
+                    hidden(0)
+                    // 検索市区町村の座標系を入力
+                    document.getElementById("flatK").innerHTML = csv[i][6]
+                    document.getElementById("utmK").innerHTML = csv[i][7]
 
+                    // 検索市町村名のEPSGを入力
+                    for (let j=9; j<21; j++){
+                        document.getElementById(geo_list[j-9]).innerHTML = csv[i][j]
+                    }
+                }
+                // 市区町村が一つしか存在しない時の処理
+                else if(csv[i][2] == multi_name || csv[i][4] == multi_name || csv[i][5] == multi_name){    // csvの中に都道府県名が存在した場合
+                    // 市区町村名がない場合は都道府県名のみ
+                    if (csv[i][4] == ""){
+                        let none_title = csv[i][1]
+                        document.getElementById("single_title").innerHTML = none_title
+                    }
+                    else{
+                        let city_title = csv[i][1] + " " + csv[i][2]
+                        document.getElementById("single_title").innerHTML = city_title
+                    }
+                    // 表の表示非表示
+                    hidden(0)
+                    // 検索市区町村の座標系を入力
+                    document.getElementById("flatK").innerHTML = csv[i][6]
+                    document.getElementById("utmK").innerHTML = csv[i][7]
+                    // 検索市町村名のEPSGを入力
+                    for (let j=9; j<21; j++){
+                        document.getElementById(geo_list[j-9]).innerHTML = csv[i][j]
+                    }
+                }
+                // 三島村を検索したとき
+                else if(multi_name == "三島村" || multi_name == "みしまむら"){
+                    // 表の表示非表示
+                    hidden(1)
                     if (csv[i][2] == "三島村（黒島）"){
                         document.getElementById("title_left").innerHTML = "鹿児島県 三島村（黒島）"
                         // (黒島)検索市区町村の座標系を入力
                         document.getElementById("flatK_left").innerHTML = csv[i][6]
                         document.getElementById("utmK_left").innerHTML = csv[i][7]
-                        document.getElementById("geoK_left").innerHTML = csv[i][8]
-
-                        // (黒島)検索市町村名のEPSGを入力
-                        document.getElementById("JGD2011_geo_left").innerHTML = csv[i][11]
-                        document.getElementById("JGD2011_utm_left").innerHTML = csv[i][10]
-                        document.getElementById("JGD2011_flat_left").innerHTML = csv[i][9]
-                        document.getElementById("JGD2000_geo_left").innerHTML = csv[i][14]
-                        document.getElementById("JGD2000_utm_left").innerHTML = csv[i][13]
-                        document.getElementById("JGD2000_flat_left").innerHTML = csv[i][12]
-                        document.getElementById("WGS84_geo_left").innerHTML = csv[i][18]
-                        document.getElementById("WGS84_utm_left").innerHTML = csv[i][19]
-                        document.getElementById("tky_geo_left").innerHTML = csv[i][17]
-                        document.getElementById("tky_utm_left").innerHTML = csv[i][16]
-                        document.getElementById("tky_flat_left").innerHTML = csv[i][15]
+                        // 検索市町村名のEPSGを入力
+                        for (let j=9; j<21; j++){
+                            var geo_id = geo_list[j-9] + "_left"
+                            document.getElementById(geo_id).innerHTML = csv[i][j]
+                        }
                     }
                     else if (csv[i][2] == "三島村（竹島・硫黄島）"){
                         document.getElementById("title_right").innerHTML = "鹿児島県 三島村（竹島・硫黄島）"
                         // (竹島・硫黄島)検索市区町村の座標系を入力
                         document.getElementById("flatK_right").innerHTML = csv[i][6]
                         document.getElementById("utmK_right").innerHTML = csv[i][7]
-                        document.getElementById("geoK_right").innerHTML = csv[i][8]
-
-                        // (竹島・硫黄島)検索市町村名のEPSGを入力
-                        document.getElementById("JGD2011_geo_right").innerHTML = csv[i][11]
-                        document.getElementById("JGD2011_utm_right").innerHTML = csv[i][10]
-                        document.getElementById("JGD2011_flat_right").innerHTML = csv[i][9]
-                        document.getElementById("JGD2000_geo_right").innerHTML = csv[i][14]
-                        document.getElementById("JGD2000_utm_right").innerHTML = csv[i][13]
-                        document.getElementById("JGD2000_flat_right").innerHTML = csv[i][12]
-                        document.getElementById("WGS84_geo_right").innerHTML = csv[i][18]
-                        document.getElementById("WGS84_utm_right").innerHTML = csv[i][19]
-                        document.getElementById("tky_geo_right").innerHTML = csv[i][17]
-                        document.getElementById("tky_utm_right").innerHTML = csv[i][16]
-                        document.getElementById("tky_flat_right").innerHTML = csv[i][15]
+                        // 検索市町村名のEPSGを入力
+                        for (let j=9; j<21; j++){
+                            var geo_id = geo_list[j-9] + "_right"
+                            document.getElementById(geo_id).innerHTML = csv[i][j]
+                        }
                     }
                 }
-                else if(csv[i][2] == municipalities || csv[i][4] == municipalities || csv[i][5] == municipalities){    // csvの中に都道府県名が存在した場合
-                    let title = csv[i][1] + " " + csv[i][2]
-                    document.getElementById("single_title").innerHTML = title
-                    document.getElementById("single").hidden = false
-                    document.getElementById("multi_top").hidden = true
-                    document.getElementById("multi_bottom").hidden = true
-                    // 検索市区町村の座標系を入力
-                    document.getElementById("flatK").innerHTML = csv[i][6]
-                    document.getElementById("utmK").innerHTML = csv[i][7]
-                    document.getElementById("geoK").innerHTML = csv[i][8]
-
-                    // 検索市町村名のEPSGを入力
-                    document.getElementById("JGD2011_geo").innerHTML = csv[i][11]
-                    document.getElementById("JGD2011_utm").innerHTML = csv[i][10]
-                    document.getElementById("JGD2011_flat").innerHTML = csv[i][9]
-                    document.getElementById("JGD2000_geo").innerHTML = csv[i][14]
-                    document.getElementById("JGD2000_utm").innerHTML = csv[i][13]
-                    document.getElementById("JGD2000_flat").innerHTML = csv[i][12]
-                    document.getElementById("WGS84_geo").innerHTML = csv[i][18]
-                    document.getElementById("WGS84_utm").innerHTML = csv[i][19]
-                    document.getElementById("tky_geo").innerHTML = csv[i][17]
-                    document.getElementById("tky_utm").innerHTML = csv[i][16]
-                    document.getElementById("tky_flat").innerHTML = csv[i][15]
-                }
             }
-            if (document.getElementById("JGD2011_geo").innerHTML == " "){
-                alert("市町村名が誤っています");
-                return false;
+            // 存在しない市区町村名を入力した場合
+            if (document.getElementById("JGD2011_geo").innerHTML == "　" && multi_name != "三島村" || document.getElementById("JGD2011_geo").innerHTML == "　" && multi_name != "三島村"){
+                hidden(2)
+                var error_name = document.getElementById("municipalities").value
+                var error_sentence = "「" + error_name + "」は存在しません。"
+                document.getElementById("error").innerHTML = error_sentence
+                // alert("市町村名が誤っています");
             }
-        }    
-        
+        }        
 
         //CSVファイルを読み込む関数getCSV()の定義
         function getCSV(){
