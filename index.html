@@ -320,7 +320,8 @@
                 </tr>
             </table>
         </li>
-        <textarea id="error" readonly hidden></textarea>
+        <textarea class="error" id="error" readonly hidden></textarea>
+        <textarea class="error_under" id="error_under" readonly hidden></textarea>
     </main>
 
     <script>
@@ -339,6 +340,7 @@
                 document.getElementById("multi_top").hidden = true
                 document.getElementById("multi_bottom").hidden = true
                 document.getElementById("error").hidden = true
+                document.getElementById("error_under").hidden = true
             }
             // 表を二つ表示（三島村）
             else if (flag == 1){
@@ -346,6 +348,7 @@
                 document.getElementById("multi_top").hidden = false
                 document.getElementById("multi_bottom").hidden = false
                 document.getElementById("error").hidden = true
+                document.getElementById("error_under").hidden = true
             }
             // エラー文
             else {
@@ -353,6 +356,7 @@
                 document.getElementById("multi_top").hidden = true
                 document.getElementById("multi_bottom").hidden = true
                 document.getElementById("error").hidden = false
+                document.getElementById("error_under").hidden = false
             }
         }
             
@@ -478,7 +482,7 @@
                 var error_name = document.getElementById("municipalities").value
                 var error_sentence = "「" + error_name + "」は存在しません。"
                 document.getElementById("error").innerHTML = error_sentence
-                // alert("市町村名が誤っています");
+                document.getElementById("error_under").innerHTML = "「市区町村」まで必要だよ"
             }
         }        
 
