@@ -457,7 +457,7 @@
                 }
             }
             // 存在しない市区町村名を入力した場合
-            if (document.getElementById("JGD2011_geo").innerHTML == "　" && multi_name != "三島村" || document.getElementById("JGD2011_geo").innerHTML == "　" && multi_name != "みしまむら"){
+            if (document.getElementById("JGD2011_geo").innerHTML == "　" && multi_name != "三島村"){
                 hidden(2)
                 var error_name = document.getElementById("municipalities").value
                 var error_sentence = "「" + error_name + "」は存在しません。"
