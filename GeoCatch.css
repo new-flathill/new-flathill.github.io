@@ -92,18 +92,6 @@ table{
     text-align: center;
 }
 
-textarea{
-    text-align: center;
-    resize: none;
-    outline: none;
-    /* border: none; */
-    height: 300px;
-    width: auto;
-    border: none;
-    color: red;
-    font-size: 70px;
-}
-
 .explain_left {
     float: left;
 }
@@ -118,4 +106,27 @@ textarea{
     text-align: center;
     outline: none;
     border: none;
+}
+
+.error{
+    margin-top: 5%;
+    text-align: center;
+    resize: none;
+    outline: none;
+    height: 70px;
+    width: auto;
+    border: none;
+    color: red;
+    font-size: 70px;
+}
+
+.error_under{
+    text-align: center;
+    resize: none;
+    outline: none;
+    height: 70px;
+    width: auto;
+    border: none;
+    color: red;
+    font-size: 35px;
 }
