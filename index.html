@@ -44,9 +44,9 @@
                 </tr>
                 <tr>
                     <th colspan="3" rowspan="2">　座標系　</th>
-                    <th colspan="4">平面直角座標系</th>
-                    <th colspan="4">　UTM座標系　</th>
-                    <th colspan="3">　地理座標系　</th>
+                    <th colspan="4" rowspan="1" >平面直角座標系</th>
+                    <th colspan="4" rowspan="1" >　UTM座標系　</th>
+                    <th colspan="3" rowspan="1" >　地理座標系　</th>
                 </tr>  
                 <tr>
                     <td colspan="4" rowspan="1" id="flatK">　</td>
@@ -388,15 +388,9 @@
                     list.appendChild(option)
                 }
             }
-            // // 一件しか検索結果が無かった場合にプルダウンを削除する
-            // var NewList = document.getElementById("NameList")
-            // var NewOptions = OldList.options
-            // if (NewOptions.length < 2){
-            //     NewList.removeChild(NewOptions[0])
-            // }
             if (CityName == ""){
                 for (s=0; s<id_list.length; s++){
-                    document.getElementById(id_list[s]).innerHTML = " "
+                    document.getElementById(id_list[s]).innerHTML = "　"
                 }
             }
         }
