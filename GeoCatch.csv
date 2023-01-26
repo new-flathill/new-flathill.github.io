@@ -1,3 +1,5 @@
+code,kanji_preg,kanji,kana_pref,kana,hiragana,XY_name,UTM_XY_name,Geog_BL_name,epsg_jgd2011_xy,epsg_jgd2011_utmXY,epsg_jgd2011_bl,epsg_jgd2000_xy,epsg_jgd2000_utmXY,epsg_jgd2000_bl,epsg_tky_xy,epsg_tky_utmXY,epsg_tky_bl,epsg_wgs84_bl,epsg_wgs84_utmXY,epsg_web_bl,epsg_google_old
+団体コード,都道府県名（漢字）,市区町村名（漢字）,都道府県名（ｶﾅ）,市区町村名（ｶﾅ）,よみがな,投影座標_平面直角座標系,投影座標_UTM座標,投影座標_地理座標系,JGD2011平面直角,JGD2011UTM,JGD2011地理座標,JGD2000平面直角,JGD2000UTM,JGD2000地理座標,TKY平面直角,TKYUTM,TKY地理座標,WGS84地理座標,WGS84UTM,Google,Google_oldEPSG
 10006,北海道,北海道,ﾎｯｶｲﾄﾞｳ,ﾎｯｶｲﾄﾞｳ,ほっかいどう,12,54,存在しない,6680,6693,6668,2454,3100,4612,30172,3095,4301,4326,32654,3857,900913
 11002,北海道,札幌市,ﾎｯｶｲﾄﾞｳ,ｻｯﾎﾟﾛｼ,さっぽろし,12,54,存在しない,6680,6693,6668,2454,3100,4612,30172,3095,4301,4326,32654,3857,900913
 12025,北海道,函館市,ﾎｯｶｲﾄﾞｳ,ﾊｺﾀﾞﾃｼ,はこだてし,11,54,存在しない,6679,6693,6668,2453,3100,4612,30171,3095,4301,4326,32654,3857,900913
