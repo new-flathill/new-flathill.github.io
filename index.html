@@ -15,7 +15,7 @@
 
         <li class="li_center">
             <input class="municipalities" type="text" id="municipalities" list="NameList"
-            placeholder="市区町村名を入れてください　　例：川越市" onchange=getEPSG() oninput=searchCity()>
+            placeholder="市区町村名を入れてください　　例：川越市" onchange=getEPSG() oninput=searchCity() onfocus=this.select()>
         <datalist id="NameList"></datalist>
         </input>
         
@@ -49,9 +49,9 @@
                     <th colspan="3">　地理座標系　</th>
                 </tr>  
                 <tr>
-                    <td colspan="4" id="flatK">　</td>
-                    <td colspan="4" id="utmK">　</td>
-                    <td colspan="3" id="geoK">存在しません</td>
+                    <td colspan="4" rowspan="1" id="flatK">　</td>
+                    <td colspan="4" rowspan="1" id="utmK">　</td>
+                    <td colspan="3" rowspan="1" id="geoK">存在しない</td>
                 </tr>
             </table><br>
 
@@ -147,7 +147,7 @@
                 <tr>
                     <td colspan="4" id="flatK_left">　</td>
                     <td colspan="4" id="utmK_left">　</td>
-                    <td colspan="3" id="geoK_left">存在しません</td>
+                    <td colspan="3" id="geoK_left">存在しない</td>
                 </tr>
             </table>
 
@@ -169,7 +169,7 @@
                 <tr>
                     <td colspan="4" id="flatK_right">　</td>
                     <td colspan="4" id="utmK_right">　</td>
-                    <td colspan="3" id="geoK_right">存在しません</td>
+                    <td colspan="3" id="geoK_right">存在しない</td>
                 </tr>
             </table>
         </li>
@@ -366,6 +366,9 @@
          * csv情報はセッションストレージから取得する
          */
         function searchCity(){
+            // 表のidをリスト化
+            var id_list = ["single_code", "single_title", "flatK", "geoK", "utmK", "JGD2011_flat", "JGD2011_utm", "JGD2011_geo", "JGD2000_flat",
+                           "JGD2000_utm", "JGD2000_geo", "tky_flat", "tky_utm", "tky_geo", "WGS84_geo", "WGS84_utm", "WGS_mer"]
             // 毎回追加されるため、入力の最初はoptionsを空にする
             var OldList = document.getElementById("NameList")
             var OldOptions = OldList.options
@@ -385,6 +388,17 @@
                     list.appendChild(option)
                 }
             }
+            // // 一件しか検索結果が無かった場合にプルダウンを削除する
+            // var NewList = document.getElementById("NameList")
+            // var NewOptions = OldList.options
+            // if (NewOptions.length < 2){
+            //     NewList.removeChild(NewOptions[0])
+            // }
+            if (CityName == ""){
+                for (s=0; s<id_list.length; s++){
+                    document.getElementById(id_list[s]).innerHTML = " "
+                }
+            }
         }
 
         /**
@@ -392,19 +406,20 @@
          * 名前から取得
          */
         function getEPSG(){
-            // 連続で検索する際に同じ情報にならないよう一回空っぽにする
-            var id_List = ["flatK", "utmK", "JGD2011_geo", "JGD2011_utm", "JGD2011_flat", "JGD2000_geo", 
-                           "JGD2000_utm", "JGD2000_flat", "WGS84_geo", "WGS84_utm", "tky_geo", "tky_utm", "tky_flat"]
-            for(let h=0; h<id_List.length; h++){
-                document.getElementById(id_List[h]).innerHTML = "　"
-            }
-
             // 表のidをリスト化
-            var geo_list = ["JGD2011_flat", "JGD2011_utm", "JGD2011_geo", "JGD2000_flat", "JGD2000_utm", "JGD2000_geo",
+            var geo_list = ["flatK", "utmK", "geoK", "JGD2011_flat", "JGD2011_utm", "JGD2011_geo", "JGD2000_flat", "JGD2000_utm", "JGD2000_geo",
                             "tky_flat", "tky_utm", "tky_geo", "WGS84_geo", "WGS84_utm", "WGS_mer"]
+
+            // 連続で検索する際に同じ情報にならないよう一回空っぽにする
+            for(let h=0; h<geo_list.length; h++){
+                document.getElementById(geo_list[h]).innerHTML = "　"
+            }
+            
             // 名前を取得して都道府県と市区町村を分ける
             var multi_name = document.getElementById("municipalities").value
             var name = multi_name.split(" ")
+
+            var flag = 0
 
             // csvの中から、対応の部分を取得する
             for(let i=0; i<csv.length; i++){  // csvのリストの長さだけ探索を行う
@@ -415,14 +430,13 @@
                     document.getElementById("single_code").innerHTML = csv[i][0]
                     // 表の表示非表示
                     hidden(0)
-                    // 検索市区町村の座標系を入力
-                    document.getElementById("flatK").innerHTML = csv[i][6]
-                    document.getElementById("utmK").innerHTML = csv[i][7]
 
                     // 検索市町村名のEPSGを入力
-                    for (let j=9; j<21; j++){
-                        document.getElementById(geo_list[j-9]).innerHTML = csv[i][j]
+                    for (let j=6; j<21; j++){
+                        document.getElementById(geo_list[j-6]).innerHTML = csv[i][j]
                     }
+                    // 検索結果があったことの証明
+                    flag = 1
                 }
                 // 市区町村が一つしか存在しない時の処理
                 else if(csv[i][2] == multi_name || csv[i][4] == multi_name || csv[i][5] == multi_name){
@@ -438,13 +452,13 @@
                     }
                     // 表の表示非表示
                     hidden(0)
-                    // 検索市区町村の座標系を入力
-                    document.getElementById("flatK").innerHTML = csv[i][6]
-                    document.getElementById("utmK").innerHTML = csv[i][7]
+
                     // 検索市町村名のEPSGを入力
-                    for (let j=9; j<21; j++){
-                        document.getElementById(geo_list[j-9]).innerHTML = csv[i][j]
+                    for (let j=6; j<21; j++){
+                        document.getElementById(geo_list[j-6]).innerHTML = csv[i][j]
                     }
+                    // 検索結果があったことの証明
+                    flag = 1
                 }
                 // 三島村を検索したとき
                 else if(multi_name == "三島村" || multi_name == "みしまむら"){
@@ -453,34 +467,32 @@
                     if (csv[i][2] == "三島村（黒島）"){
                         document.getElementById("code_left").innerHTML = csv[i][0]
                         document.getElementById("title_left").innerHTML = "鹿児島県 三島村（黒島）"
-                        // (黒島)検索市区町村の座標系を入力
-                        document.getElementById("flatK_left").innerHTML = csv[i][6]
-                        document.getElementById("utmK_left").innerHTML = csv[i][7]
+
                         // 検索市町村名のEPSGを入力
-                        for (let j=9; j<21; j++){
-                            var geo_id = geo_list[j-9] + "_left"
+                        for (let j=6; j<21; j++){
+                            var geo_id = geo_list[j-6] + "_left"
                             document.getElementById(geo_id).innerHTML = csv[i][j]
                         }
                     }
                     else if (csv[i][2] == "三島村（竹島・硫黄島）"){
                         document.getElementById("code_right").innerHTML = csv[i][0]
                         document.getElementById("title_right").innerHTML = "鹿児島県 三島村（竹島・硫黄島）"
-                        // (竹島・硫黄島)検索市区町村の座標系を入力
-                        document.getElementById("flatK_right").innerHTML = csv[i][6]
-                        document.getElementById("utmK_right").innerHTML = csv[i][7]
+
                         // 検索市町村名のEPSGを入力
-                        for (let j=9; j<21; j++){
-                            var geo_id = geo_list[j-9] + "_right"
+                        for (let j=6; j<21; j++){
+                            var geo_id = geo_list[j-6] + "_right"
                             document.getElementById(geo_id).innerHTML = csv[i][j]
                         }
                     }
+                    // 検索結果があったことの証明
+                    flag = 1
                 }
             }
             // 存在しない市区町村名を入力した場合
-            if (document.getElementById("JGD2011_geo").innerHTML == "　" && multi_name != "三島村"){
+            if (flag != 1){
                 hidden(2)
                 var error_name = document.getElementById("municipalities").value
-                var error_sentence = "「" + error_name + "」は見つかりませんでした"
+                var error_sentence = "「" + error_name + "」は存在しません。"
                 document.getElementById("error").innerHTML = error_sentence
                 document.getElementById("error_under").innerHTML = "「市区町村」まで必要だよ"
             }
