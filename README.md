@@ -25,3 +25,5 @@
 ![mishimamura](https://user-images.githubusercontent.com/123290797/215041016-2135262a-6fef-4ea4-9d22-4fd4601d5c0c.gif)
 
       ・入力欄を再度選択すると、中の文字が全選択された状態になってるよ（次の検索も楽々だね！）
+
+![table_12](https://user-images.githubusercontent.com/123290797/215041750-b279024b-c887-483c-b11c-dc206de6e106.gif)
