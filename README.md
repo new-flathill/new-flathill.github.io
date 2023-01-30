@@ -1,4 +1,6 @@
-# 座標とれ～る
+# 座標とれ～る　<img src="./img/CCBY.png" width="150px">
+※座標は取れないよ...
+
 [サイトURL](https://new-flathill.github.io/)
 
 ## ・作成に至った経緯
