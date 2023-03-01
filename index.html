@@ -19,7 +19,19 @@
             <input class="municipalities" type="text" id="municipalities" list="NameList"
             placeholder="市区町村名を入れてください　　例：川越市" onchange=getEPSG() oninput=searchCity() onfocus=this.select()>
         <datalist id="NameList"></datalist>
-            </input>
+        </input>
+        
+            <!-- <div class="explain_left"><br>
+                <textarea rows="4" cols="40" readonly>
+説明文を記入
+                </textarea>
+            </div>
+
+            <div class="explain_right"><br>
+                <textarea rows="4" cols="40" readonly>
+説明文を記入
+                </textarea>
+            </div> -->
         </li>
 
         <li class="li_center" id="single">
@@ -416,7 +428,7 @@
                     hidden(0)
 
                     // 検索市町村名のEPSGを入力
-                    for (let j=7; j<21; j++){
+                    for (let j=7; j<22; j++){
                         document.getElementById(geo_list[j-7]).innerHTML = csv[i][j]
                     }
                     // 検索結果があったことの証明
@@ -448,7 +460,7 @@
                 else if(multi_name == "三島村" || multi_name == "みしまむら"){
                     // 表の表示非表示
                     hidden(1)
-                    if (csv[i][2] == "三島村（黒島）"){
+                    if (csv[i][3] == "三島村（黒島）"){
                         document.getElementById("code_left").innerHTML = csv[i][1]
                         document.getElementById("title_left").innerHTML = "鹿児島県 三島村（黒島）"
 
