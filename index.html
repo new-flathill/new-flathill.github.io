@@ -6,7 +6,7 @@
     <title>座標とれ～る</title>
     <link href="GeoCatch.css" rel='stylesheet' 　media="all">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
-    <link rel="icon" href="chikyugi.ico" />
+    <link rel="icon" href="favicon.ico" />
 </head>
 
 <body>
@@ -390,6 +390,14 @@
                     list.appendChild(option)
                 }
             }
+            // 検索都市が一か所しかない場合にはプルダウンを削除する
+            var NewList = document.getElementById("NameList")
+            var NewOptions = NewList.options
+            var count = NewOptions.length
+            if (count == 1){
+                NewList.removeChild(NewOptions[0])
+            }
+            // 検索都市名が空っぽの時には表も空っぽにする
             if (CityName == ""){
                 for (s=0; s<id_list.length; s++){
                     document.getElementById(id_list[s]).innerHTML = "　"
@@ -438,12 +446,12 @@
                 else if(csv[i][3] == multi_name || csv[i][5] == multi_name || csv[i][6] == multi_name){
                     document.getElementById("single_code").innerHTML = csv[i][1]
                     // 市区町村名がない場合は都道府県名のみ
-                    if (csv[i][5] == ""){
+                    if (csv[i][2] == multi_name && csv[i][3] == multi_name){
                         let none_title = csv[i][2]
                         document.getElementById("single_title").innerHTML = none_title
                     }
                     else{
-                        let city_title = csv[i][2] + " " + csv[i][2]
+                        let city_title = csv[i][2] + " " + csv[i][3]
                         document.getElementById("single_title").innerHTML = city_title
                     }
                     // 表の表示非表示
@@ -482,6 +490,10 @@
                     }
                     // 検索結果があったことの証明
                     flag = 1
+                }
+                // 最初都市名で検索したときに検索都市名に「都道府県名　都道府県名」が入るのを防ぐための処理
+                else{
+
                 }
             }
             // 存在しない市区町村名を入力した場合
