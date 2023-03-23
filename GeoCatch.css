@@ -1,132 +1,283 @@
-/* 車両情報のtext部分の入力 */
-.municipalities{
-    text-align: right;
-    padding: 5px;
-    margin-top: 8px;
-    height: 25px;
-    width: 280px;
-    text-align: right;
-    font-size: 10pt;
+/* PC用のCSS */
+@media screen and (min-width: 767px) {
+    /* 都市検索のtext部分 */
+    .municipalities{
+        text-align: right;
+        padding: 5px;
+        margin-top: 8px;
+        height: 25px;
+        width: 280px;
+        text-align: right;
+        font-size: 10pt;
+    }
+
+    .single_title{
+        text-align: center;
+        margin-bottom: 10px;
+        height: 25px;
+        width: 280px;
+        text-align: right;
+        font-size: 10pt;
+    }
+
+    .title_right{
+        text-align: right;
+        margin-bottom: 10px;
+        margin-left: auto;
+        height: 25px;
+        width: auto;
+        text-align: right;
+        font-size: 10pt;
+    }
+
+    .title_left{
+        text-align: left;
+        margin-bottom: 10px;
+        margin-right: auto;
+        height: 25px;
+        width: auto;
+        text-align: right;
+        font-size: 10pt;
+    }
+
+    ul, li {
+        padding-left: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+        list-style: none;
+    }
+
+    .li_center {
+        background: white;
+        text-align: center;
+        /* padding: 20px; */
+        /*padding-left: 0%;
+        padding-right: 0%;*/
+    }
+
+    li {
+        /* background: #ccc; */
+        text-align: center;
+        padding: 20px 10px;
+        border: 1px solid #fff;
+    }
+
+    html{
+        height: 100%;
+    }
+
+    main{
+        position: relative;
+        background-color:white;
+        margin: 1em;
+        min-height: 95%;
+        margin-left: 0.5em;
+        margin-right: 0.5em;
+        border-radius: 3%;
+        padding-top: 0.5em;
+        display: block;
+        display: flex;              /*footerを下部に配置するために追加*/
+        flex-direction: column;     /**/
+        min-height: 95vh;           /**/
+    }
+
+    h1{
+        margin: 1em;
+    }
+
+    table{
+        margin: auto;
+        overflow-wrap: break-word;
+    }
+
+    .center{
+        text-align: center;
+    }
+
+    .right_table {
+        margin-right: 10%;
+    }
+
+    .left_table {
+        margin-left: 10%;
+    }
+
+    .explain_left {
+        float: left;
+    }
+
+    .explain_center {
+        float: center;
+    }
+
+    .explain_right {
+        float: right;
+        width: 100%;
+        text-align: center;
+        outline: none;
+        border: none;
+    }
+
+    .error{
+        margin-top: 5%;
+        text-align: center;
+        resize: none;
+        outline: none;
+        height: 70px;
+        width: auto;
+        border: none;
+        color: red;
+        font-size: 70px;
+    }
+
+    .error_under{
+        text-align: center;
+        resize: none;
+        outline: none;
+        height: 70px;
+        width: auto;
+        border: none;
+        color: red;
+        font-size: 35px;
+    }
+
+    .jump_download{
+        display: flex;
+    }
 }
 
-.single_title{
-    text-align: center;
-    margin-bottom: 10px;
-    height: 25px;
-    width: 280px;
-    text-align: right;
-    font-size: 10pt;
-}
+/* スマホ用のCSS */
+@media screen and (max-width: 479px) {
+    /* 都市検索のtext部分 */
+    .municipalities{
+        text-align: right;
+        padding: 5px;
+        margin-top: 8px;
+        height: 25px;
+        width: 280px;
+        text-align: right;
+        font-size: 10pt;
+    }
 
-.title_right{
-    text-align: right;
-    margin-bottom: 10px;
-    margin-left: auto;
-    height: 25px;
-    width: auto;
-    text-align: right;
-    font-size: 10pt;
-}
+    .single_title{
+        text-align: center;
+        margin-bottom: 10px;
+        height: 25px;
+        width: 280px;
+        text-align: right;
+        font-size: 10pt;
+    }
 
-.title_left{
-    text-align: left;
-    margin-bottom: 10px;
-    margin-right: auto;
-    height: 25px;
-    width: auto;
-    text-align: right;
-    font-size: 10pt;
-}
+    .title_right{
+        text-align: right;
+        margin-bottom: 10px;
+        margin-left: auto;
+        height: 25px;
+        width: auto;
+        text-align: right;
+        font-size: 10pt;
+    }
 
-ul, li {
-    padding-left: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-    list-style: none;
-}
+    .title_left{
+        text-align: left;
+        margin-bottom: 10px;
+        margin-right: auto;
+        height: 25px;
+        width: auto;
+        text-align: right;
+        font-size: 10pt;
+    }
 
-.li_center {
-    background: white;
-    text-align: center;
-    /* padding: 20px; */
-    /*padding-left: 0%;
-    padding-right: 0%;*/
-}
+    ul, li {
+        padding-left: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+        list-style: none;
+    }
 
-li {
-    /* background: #ccc; */
-    text-align: center;
-    padding: 20px 10px;
-    border: 1px solid #fff;
-}
+    .li_center {
+        background: white;
+        text-align: center;
+        /* padding: 20px; */
+        /*padding-left: 0%;
+        padding-right: 0%;*/
+    }
 
-html{
-    height: 100%;
-}
+    li {
+        /* background: #ccc; */
+        text-align: center;
+        padding: 20px 10px;
+        border: 1px solid #fff;
+    }
 
-main{
-    position: relative;
-    background-color:white;
-    margin: 1em;
-    min-height: 95%;
-    margin-left: 0.5em;
-    margin-right: 0.5em;
-    border-radius: 3%;
-    padding-top: 0.5em;
-    display: block;
-    display: flex;              /*footerを下部に配置するために追加*/
-    flex-direction: column;     /**/
-    min-height: 95vh;           /**/
-}
+    html{
+        height: 100%;
+    }
 
-h1{
-    margin: 1em;
-}
+    main{
+        position: relative;
+        background-color:white;
+        margin: 1em;
+        min-height: 95%;
+        margin-left: 0.5em;
+        margin-right: 0.5em;
+        border-radius: 3%;
+        padding-top: 0.5em;
+        display: block;
+        display: flex;              /*footerを下部に配置するために追加*/
+        flex-direction: column;     /**/
+        min-height: 95vh;           /**/
+    }
 
-table{
-    margin: auto;
-    overflow-wrap: break-word;
-}
+    h1{
+        margin: 1em;
+    }
 
-.center{
-    text-align: center;
-}
+    table{
+        margin: auto;
+        overflow-wrap: break-word;
+    }
 
-.explain_left {
-    float: left;
-}
+    .center{
+        text-align: center;
+    }
 
-.explain_center {
-    float: center;
-}
+    .explain_left {
+        float: left;
+    }
 
-.explain_right {
-    float: right;
-    width: 100%;
-    text-align: center;
-    outline: none;
-    border: none;
-}
+    .explain_center {
+        float: center;
+    }
 
-.error{
-    margin-top: 5%;
-    text-align: center;
-    resize: none;
-    outline: none;
-    height: 70px;
-    width: auto;
-    border: none;
-    color: red;
-    font-size: 70px;
-}
+    .explain_right {
+        float: right;
+        width: 100%;
+        text-align: center;
+        outline: none;
+        border: none;
+    }
 
-.error_under{
-    text-align: center;
-    resize: none;
-    outline: none;
-    height: 70px;
-    width: auto;
-    border: none;
-    color: red;
-    font-size: 35px;
+    .error{
+        margin-top: 5%;
+        text-align: center;
+        resize: none;
+        outline: none;
+        height: 70px;
+        width: auto;
+        border: none;
+        color: red;
+        font-size: 70px;
+    }
+
+    .error_under{
+        text-align: center;
+        resize: none;
+        outline: none;
+        height: 70px;
+        width: auto;
+        border: none;
+        color: red;
+        font-size: 35px;
+    }
 }
