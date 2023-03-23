@@ -12,30 +12,22 @@
 
 <body>
     <main>
-        <font size="7">　座標とれ～る
+        <font size="7">　座標とれ～る</font>
+        <div class="jump_download">
+            <span>　　　</span>
+            <a class="csv_download" href="GeoCatch.csv" download>csvファイル</a>
+            <span>　　　　　　　</span>
             <a class="github-button" href="https://github.com/new-flathill/new-flathill.github.io" data-size="large"
-             aria-label="Use this GitHub Action new-flathill/new-flathill.github.io on GitHub">Jump to GitHub Page!!</a>
-        </font><br>
-
+                aria-label="Use this GitHub Action new-flathill/new-flathill.github.io on GitHub">Jump to GitHub Page!!</a>
+        </div>
+        
         <div style="padding:  15px 10px;  background: #98fb98;">検索する市区町村名を入れてください</div>
 
         <li class="li_center">
             <input class="municipalities" type="text" id="municipalities" list="NameList"
             placeholder="市区町村名を入れてください　　例：川越市" onchange=getEPSG() oninput=searchCity() onfocus=this.select()>
-        <datalist id="NameList"></datalist>
+            <datalist id="NameList"></datalist>
         </input>
-        
-            <!-- <div class="explain_left"><br>
-                <textarea rows="4" cols="40" readonly>
-説明文を記入
-                </textarea>
-            </div>
-
-            <div class="explain_right"><br>
-                <textarea rows="4" cols="40" readonly>
-説明文を記入
-                </textarea>
-            </div> -->
         </li>
 
         <li class="li_center" id="single">
