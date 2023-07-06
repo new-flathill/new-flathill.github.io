@@ -617,7 +617,7 @@
         function text_type(){
             text = document.getElementById("municipalities").value
             type = isNaN(text);
-            if(type == true){   // 文字列の時
+            if(type){   // 文字列の時
                 getEPSG_name();
             }
             else{   // 数値の時
