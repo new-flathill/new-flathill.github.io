@@ -21,13 +21,13 @@
                 aria-label="Use this GitHub Action new-flathill/new-flathill.github.io on GitHub">Jump to GitHub Page!!</a>
         </div>
         
-        <div style="padding:  15px 10px;  background: #98fb98;">検索する市区町村名を入れてください</div>
+        <div style="padding:  15px 10px;  background: #98fb98;">市区町村名または自治体コードを入力してください</div>
 
         <li class="li_center">
             <input class="municipalities" type="text" id="municipalities" list="NameList"
-            placeholder="市区町村名を入れてください　　例：川越市" onchange=getEPSG() oninput=searchCity() onfocus=this.select()>
+            placeholder="入力例：川越市（または 11201）" onchange=text_type() oninput=searchCity() onfocus=this.select()>
             <datalist id="NameList"></datalist>
-        </input>
+            </input>
         </li>
 
         <li class="li_center" id="single">
@@ -405,7 +405,7 @@
          * 市区町村座標取得
          * 名前から取得
          */
-        function getEPSG(){
+        function getEPSG_name(){
             // 表のidをリスト化
             var geo_list = ["flatK", "utmK", "geoK", "JGD2011_flat", "JGD2011_utm", "JGD2011_geo", "JGD2000_flat", "JGD2000_utm", "JGD2000_geo",
                             "tky_flat", "tky_utm", "tky_geo", "WGS84_geo", "WGS84_utm", "WGS_mer"]
@@ -500,7 +500,92 @@
                 document.getElementById("error").innerHTML = error_sentence
                 document.getElementById("error_under").innerHTML = "例：　☓ 川越　→　〇 川越市"
             }
-        }        
+        }
+
+        /**
+         * 市区町村座標取得
+         * 自治体コードから取得
+         */
+         function getEPSG_code(){
+            // 表のidをリスト化
+            var geo_list = ["flatK", "utmK", "geoK", "JGD2011_flat", "JGD2011_utm", "JGD2011_geo", "JGD2000_flat", "JGD2000_utm", "JGD2000_geo",
+                            "tky_flat", "tky_utm", "tky_geo", "WGS84_geo", "WGS84_utm", "WGS_mer"]
+
+            // 連続で検索する際に同じ情報にならないよう一回空っぽにする
+            for(let h=0; h<geo_list.length; h++){
+                document.getElementById(geo_list[h]).innerHTML = "　"
+            }
+            
+            // 自治体コードの取得
+            var municipality_code = document.getElementById("municipalities").value
+
+            var flag = 0
+
+            // csvの中から、対応の部分を取得する
+            for(let i=0; i<csv.length; i++){  // csvのリストの長さだけ探索を行う
+                
+                // 三島村以外の時の処理
+                if(csv[i][1] == municipality_code){
+                    document.getElementById("single_code").innerHTML = csv[i][1]
+                    // 市区町村名がない場合は都道府県名のみ
+                    if (csv[i][2] == csv[i][3]){
+                        let none_title = csv[i][2]
+                        document.getElementById("single_title").innerHTML = none_title
+                    }
+                    else{
+                        let city_title = csv[i][2] + " " + csv[i][3]
+                        document.getElementById("single_title").innerHTML = city_title
+                    }
+                    // 表の表示非表示
+                    hidden(0)
+
+                    // 検索市町村名のEPSGを入力
+                    for (let j=7; j<22; j++){
+                        document.getElementById(geo_list[j-7]).innerHTML = csv[i][j]
+                    }
+                    // 検索結果があったことの証明
+                    flag = 1
+                }
+                // 三島村を検索したとき
+                else if(municipality_code == "46303"){
+                    // 表の表示非表示
+                    hidden(1)
+                    if (csv[i][3] == "三島村（黒島）"){
+                        document.getElementById("code_left").innerHTML = csv[i][1]
+                        document.getElementById("title_left").innerHTML = "鹿児島県 三島村（黒島）"
+
+                        // 検索市町村名のEPSGを入力
+                        for (let j=7; j<22; j++){
+                            var geo_id = geo_list[j-7] + "_left"
+                            document.getElementById(geo_id).innerHTML = csv[i][j]
+                        }
+                    }
+                    else if (csv[i][3] == "三島村（竹島・硫黄島）"){
+                        document.getElementById("code_right").innerHTML = csv[i][1]
+                        document.getElementById("title_right").innerHTML = "鹿児島県 三島村（竹島・硫黄島）"
+
+                        // 検索市町村名のEPSGを入力
+                        for (let j=7; j<22; j++){
+                            var geo_id = geo_list[j-7] + "_right"
+                            document.getElementById(geo_id).innerHTML = csv[i][j]
+                        }
+                    }
+                    // 検索結果があったことの証明
+                    flag = 1
+                }
+                // 最初都市名で検索したときに検索都市名に「都道府県名　都道府県名」が入るのを防ぐための処理
+                else{
+
+                }
+            }
+            // 存在しない自治体コードを入力した場合
+            if (flag != 1){
+                hidden(2)
+                var error_name = document.getElementById("municipalities").value
+                var error_sentence = "自治体コードが誤っています"
+                document.getElementById("error").innerHTML = error_sentence
+            }
+        }  
 
         //CSVファイルを読み込む関数getCSV()の定義
         function getCSV(){
@@ -526,6 +611,18 @@
                 result[i] = tmp[i].split(',');
             }
             return result
+        }
+
+        // 入力情報が自治体コードか市区町村名かを識別
+        function text_type(){
+            text = document.getElementById("municipalities").value
+            type = isNaN(text);
+            if(type == true){   // 文字列の時
+                getEPSG_name();
+            }
+            else{   // 数値の時
+                getEPSG_code();
+            }
         }
 
     </script>
