@@ -21,10 +21,11 @@
             <a class="github-button" href="https://github.com/new-flathill/new-flathill.github.io" data-size="large"
                 aria-label="Use this GitHub Action new-flathill/new-flathill.github.io on GitHub">Jump to GitHub Page!!</a>
         </div>
-        
-        <div style="padding:  15px 10px;  background: #98fb98;">市区町村名または自治体コードを入力してください</div>
+
+        <div style="padding:  15px 10px;  background: #98fb98;">市区町村名から座標系とEPSGコードを検索できます</div>
 
         <li class="li_center">
+            <div style="padding:  15px 10px; size: 10;">市区町村名または自治体コードを入力してください</div>
             <input class="municipalities" type="text" id="municipalities" list="NameList"
             placeholder="入力例：川越市（または 11201）" onchange=text_type() oninput=searchCity() onfocus=this.select()>
             <datalist id="NameList"></datalist>
