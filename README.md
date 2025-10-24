@@ -1,5 +1,5 @@
-# 座標とれ～る　<img src="./img/CCBY.png" width="150px">
-※座標は取れないよ...
+# EPSGとれーる　<img src="./img/CCBY.png" width="150px">
+※旧座標とれ～る
 
 [サイトURL](https://new-flathill.github.io/)
 
